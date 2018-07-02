@@ -43,6 +43,7 @@ export interface NormalizedJSONSchema extends JSONSchema {
   oneOf?: NormalizedJSONSchema[]
   not?: NormalizedJSONSchema
   required: string[]
+  rate: number
 }
 
 export interface EnumJSONSchema extends NormalizedJSONSchema {

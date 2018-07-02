@@ -70,6 +70,7 @@ export interface TInterfaceParam {
   isRequired: boolean
   isPatternProperty: boolean
   isUnreachableDefinition: boolean
+  rate: number
 }
 
 export interface TIntersection extends AbstractAST {

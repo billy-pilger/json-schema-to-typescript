@@ -177,13 +177,16 @@ function generateInterface(
     + '\n'
     + ast.params
       .filter(_ => !_.isPatternProperty && !_.isUnreachableDefinition)
-      .map(({ isRequired, keyName, ast }) => [isRequired, keyName, ast, generateType(ast, options)] as [boolean, string, AST, string])
-      .map(([isRequired, keyName, ast, type]) =>
+      .filter(ast => isNaN(ast.rate) || ast.rate >= options.minRate)
+      .sort((a, b) => b.rate - a.rate)
+      .map(({ isRequired, keyName, ast, rate }) => [isRequired, keyName, ast, rate, generateType(ast, options)] as [boolean, string, AST, number, string])
+      .map(([isRequired, keyName, ast, rate, type]) =>
         (hasComment(ast) && !ast.standaloneName ? generateComment(ast.comment) + '\n' : '')
         + escapeKeyName(keyName)
-        + (isRequired ? '' : '?')
+        + (isRequired || rate >= options.requiredRate ? '' : '?')
         + ': '
         + (hasStandaloneName(ast) ? toSafeString(type) : type)
+        + '// ' + (rate * 100).toFixed(1) + '%'
       )
       .join('\n')
     + '\n'

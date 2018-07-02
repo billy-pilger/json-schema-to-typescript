@@ -21,6 +21,8 @@ export interface Options {
   enableConstEnums: boolean
   style: PrettierOptions
   unreachableDefinitions: boolean
+  minRate: number
+  requiredRate: number
 }
 
 export const DEFAULT_OPTIONS: Options = {
@@ -32,6 +34,8 @@ export const DEFAULT_OPTIONS: Options = {
   cwd: process.cwd(),
   declareExternallyReferenced: true,
   enableConstEnums: true, // by default, avoid generating code
+  minRate: 0,
+  requiredRate: 1,
   style: {
     bracketSpacing: false,
     printWidth: 120,

@@ -281,9 +281,9 @@ function parseSchema(
     isPatternProperty: false,
     isRequired: includes(schema.required || [], key),
     isUnreachableDefinition: false,
-    keyName: key
+    keyName: key,
+    rate: schema.properties[key].rate
   }))
-
 
   let singlePatternProperty = false
   if (schema.patternProperties) {
@@ -304,7 +304,8 @@ via the \`patternProperty\` "${key}".`
         isPatternProperty: !singlePatternProperty,
         isRequired: singlePatternProperty || includes(schema.required || [], key),
         isUnreachableDefinition: false,
-        keyName: singlePatternProperty ? '[k: string]' : key
+        keyName: singlePatternProperty ? '[k: string]' : key,
+        rate: schema.properties[key].rate
       })
     }))
   }
@@ -320,7 +321,8 @@ via the \`definition\` "${key}".`
         isPatternProperty: false,
         isRequired: includes(schema.required || [], key),
         isUnreachableDefinition: true,
-        keyName: key
+        keyName: key,
+        rate: 0
       }
     }))
   }
@@ -337,7 +339,8 @@ via the \`definition\` "${key}".`
         isPatternProperty: false,
         isRequired: true,
         isUnreachableDefinition: false,
-        keyName: '[k: string]'
+        keyName: '[k: string]',
+        rate: 0
       })
 
     case false:
@@ -351,7 +354,8 @@ via the \`definition\` "${key}".`
         isPatternProperty: false,
         isRequired: true,
         isUnreachableDefinition: false,
-        keyName: '[k: string]'
+        keyName: '[k: string]',
+        rate: 0
       })
   }
 }
